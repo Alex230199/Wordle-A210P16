@@ -92,6 +92,23 @@ function cambiarLetra(f, c, evento) {
 
     const letra = evento.target.value.toUpperCase()
 
+    // Aqui empieza el ejercicio 4: borrado con botón de borrar.
+function borrarConRetroceso(f, c, evento) {
+
+    if (evento.key !== 'Backspace') return
+
+    if (intentos[f][c] !== '') return
+
+    const casillaAnterior = evento.target.previousElementSibling
+
+    if (casillaAnterior) {
+      casillaAnterior.focus()
+    }
+
+  }
+// Aqui termina el ejercicio 4
+
+
     if (!/^[A-ZÑ]?$/.test(letra)) return
 
       const copia = intentos.map((fila) => [...fila])
@@ -103,6 +120,7 @@ function cambiarLetra(f, c, evento) {
          if (letra !== '') evento.target.nextElementSibling?.focus()
 
   }
+
 
 // Aqui empieza el ejercicio 3
 function comprobar(evento) {
@@ -149,7 +167,8 @@ function reiniciarPartida() {
                  letra={letra}
                  estado={f < filaActual ? estadoDe(fila, c, solucion) : ''}
                  activa={f === filaActual && !terminada}
-                 onCambio={(evento) => cambiarLetra(f, c, evento)}/>
+                 onCambio={(evento) => cambiarLetra(f, c, evento)}
+                 onKeyDown={(evento) => borrarConRetroceso(f, c, evento)}/>
              )
             )
           }
