@@ -77,6 +77,10 @@ function App() {
 
         const [filaActual, setFilaActual] = useState(0)
 
+    // Aqui empieza la tarea 3
+    const [aviso, setAviso] = useState('')
+    // Aqui termina la tarea 3
+
     const terminada = ganada || filaActual === filas
 
       useEffect(() => {
@@ -100,17 +104,23 @@ function cambiarLetra(f, c, evento) {
 
   }
 
+// Aqui empieza el ejercicio 3
 function comprobar(evento) {
 
       evento.preventDefault()
 
       if (terminada) return
 
-       if (intentos[filaActual].includes('')) return
+       if (intentos[filaActual].includes('')) {
+         setAviso('Faltan letras')
+         return
+       }
 
+      setAviso('')
       setFilaActual(filaActual + 1)
 
   }
+// Aqui termina el ejercicio 3
 
 
 // Aqui empieza la mejora 1
@@ -158,7 +168,10 @@ function reiniciarPartida() {
            <button className="boton" type="button" onClick={reiniciarPartida}>Jugar otra vez</button>
         </div>
       ) : (
-        <button className="boton" type="submit">Comprobar</button>
+        <div>
+          {aviso ? <p className="mensaje" role="alert">{aviso}</p> : null}
+          <button className="boton" type="submit">Comprobar</button>
+        </div>
       )}
     </form>
   )
