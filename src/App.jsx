@@ -7,6 +7,7 @@ const palabras = ['PERRO', 'NUBE', 'LUNA', 'ROSA', 'ARCO', 'CIELO','FUEGO','MARC
   'NIEVE','FLOTA','BRISA','CANTO','HIELO','VIAJE',]
   .filter((palabra) => palabra.length === columnas)
 
+// Aqui empieza la mejora 2
 function palabraAleatoria(excepcion = '') {
 
     const disponibles = palabras.filter((palabra) => palabra !== excepcion)
@@ -16,6 +17,7 @@ function palabraAleatoria(excepcion = '') {
     return lista[Math.floor(Math.random() * lista.length)]
 
 }
+// Aqui termina la mejora 2
 
 function tableroVacio() {
 
