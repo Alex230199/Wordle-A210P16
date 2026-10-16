@@ -164,6 +164,8 @@ function reiniciarPartida() {
             {fila.map((letra, c) => (
               <Casilla
                  key={c}
+                 fila={f}
+                 columna={c}
                  letra={letra}
                  estado={f < filaActual ? estadoDe(fila, c, solucion) : ''}
                  activa={f === filaActual && !terminada}

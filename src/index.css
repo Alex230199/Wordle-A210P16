@@ -45,18 +45,21 @@ body {
 .casilla.correcta {
   background: #2e7d32;
   border-color: #2e7d32;
+  border-style: double;
   color: #ffffff;
 }
 
 .casilla.presente {
   background: #f2c94c;
   border-color: #f2c94c;
+  border-style: dashed;
   color: #1a1a1b;
 }
 
 .casilla.ausente {
   background: #5f6368;
   border-color: #5f6368;
+  border-style: solid;
   color: #ffffff;
 }
 
