@@ -1,4 +1,4 @@
-function Casilla({ letra, estado = '', activa, fila, columna, onCambio }) {
+function Casilla({ letra, estado = '', activa, fila, columna, onCambio, onKeyDown }) {
   // Aqui empieza el ejercicio 6
   const etiqueta = letra
     ? `Fila ${fila + 1}, columna ${columna + 1}, letra ${letra}${estado ? `, estado ${estado}` : ''}`
@@ -13,6 +13,7 @@ function Casilla({ letra, estado = '', activa, fila, columna, onCambio }) {
       maxLength={1}
       disabled={!activa}
       onChange={onCambio}
+      onKeyDown={onKeyDown}
     />
   )
 }

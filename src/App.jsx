@@ -67,15 +67,13 @@ function estadoDe(fila, columna, solucion) {
 
 function App() {
 
-     const [intentos, setIntentos] = useState(tableroVacio())
+      const [intentos, setIntentos] = useState(tableroVacio())
+      const [solucion, setSolucion] = useState(() => palabraAleatoria())
+      const [filaActual, setFilaActual] = useState(0)
 
-    const ultimo = filaActual > 0 ? intentos[filaActual - 1].join('') : ''
+     const ultimo = filaActual > 0 ? intentos[filaActual - 1].join('') : ''
 
-    const ganada = ultimo === solucion
-
-       const [solucion, setSolucion] = useState(() => palabraAleatoria())
-
-        const [filaActual, setFilaActual] = useState(0)
+     const ganada = ultimo === solucion
 
     // Aqui empieza la tarea 3
     const [aviso, setAviso] = useState('')
@@ -88,25 +86,26 @@ function App() {
        document.querySelector('.casilla:enabled')?.focus()
     }, [filaActual])
 
+// tarea 4 inicia
+// Si esta vacia y pulso retroceso, vuelvo a la casilla anterior.
+function borrarConRetroceso(fila, columna, evento) {
+
+  if (evento.key !== 'Backspace') 
+    return
+
+
+  if (intentos[fila]
+    [columna] !== '') return
+
+  const casillaAnterior = evento.target.previousElementSibling
+
+  casillaAnterior?.focus()
+
+}
+// tarea 4 finalizada
+
 function cambiarLetra(f, c, evento) {
-
     const letra = evento.target.value.toUpperCase()
-
-    // Aqui empieza el ejercicio 4: borrado con botón de borrar.
-function borrarConRetroceso(f, c, evento) {
-
-    if (evento.key !== 'Backspace') return
-
-    if (intentos[f][c] !== '') return
-
-    const casillaAnterior = evento.target.previousElementSibling
-
-    if (casillaAnterior) {
-      casillaAnterior.focus()
-    }
-
-  }
-// Aqui termina el ejercicio 4
 
 
     if (!/^[A-ZÑ]?$/.test(letra)) return
@@ -170,7 +169,8 @@ function reiniciarPartida() {
                  estado={f < filaActual ? estadoDe(fila, c, solucion) : ''}
                  activa={f === filaActual && !terminada}
                  onCambio={(evento) => cambiarLetra(f, c, evento)}
-                 onKeyDown={(evento) => borrarConRetroceso(f, c, evento)}/>
+                  onKeyDown={(evento) => borrarConRetroceso(f, c, evento)}
+                />
              )
             )
           }
