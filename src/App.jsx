@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Casilla from './components/Casilla.jsx'
 import Teclado from './components/Teclado.jsx'
+import { estadoDe } from './juego.js'
 
 const filas = 6
 const columnas = 5
@@ -31,40 +32,6 @@ function tableroVacio() {
 
    return tablero
 
-}
-
-function estadoDe(fila, columna, solucion) {
-
-  const estado = Array(columnas).fill('ausente')
-
-  const faltantes = {}
-
-  for (let i = 0; i < columnas; i++) {
-
-    if (fila[i] === solucion[i]) {
-        estado[i] = 'correcta'
-
-    } else {
-         faltantes[solucion[i]] = (faltantes[solucion[i]] || 0) + 1
-    }
-
-  }
-
-  for (let i = 0; i < columnas; i++) {
-
-    if (estado[i] === 'correcta') continue
-
-    const letra = fila[i]
-
-    if (faltantes[letra] > 0) {
-      estado[i] = 'presente'
-      faltantes[letra] -= 1
-
-    }
-
-  }
-
-  return estado[columna]
 }
 
 function App() {
