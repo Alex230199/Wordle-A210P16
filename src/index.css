@@ -63,13 +63,57 @@ body {
   color: #ffffff;
 }
 
+.teclado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  max-width: 460px;
+  margin: 16px auto;
+}
+
+.tecla {
+  flex: 0 0 34px;
+  height: 42px;
+  padding: 0;
+  border: 2px solid #878a8c;
+  border-radius: 4px;
+  background: #e4e6e8;
+  color: #1a1a1b;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tecla.correcta {
+  border-color: #2e7d32;
+  border-style: double;
+  background: #2e7d32;
+  color: #ffffff;
+}
+
+.tecla.presente {
+  border-color: #a47b00;
+  border-style: dashed;
+  background: #f2c94c;
+}
+
+.tecla.ausente {
+  border-color: #5f6368;
+  border-style: solid;
+  background: #5f6368;
+  color: #ffffff;
+}
+
 .casilla:disabled {
   opacity: 1;
   -webkit-text-fill-color: currentColor;
 }
 
 .casilla:focus-visible,
-.boton:focus-visible {
+.boton:focus-visible,
+.tecla:focus-visible {
   outline: 3px solid #1a73e8;
   outline-offset: 2px;
 }

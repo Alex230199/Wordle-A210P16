@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import Casilla from './components/Casilla.jsx'
+import Teclado from './components/Teclado.jsx'
 
 const filas = 6
 const columnas = 5
+const letrasTeclado = 'QWERTYUIOPASDFGHJKLÑZXCVBNM'.split('')
 const palabras = ['PERRO', 'NUBE', 'LUNA', 'ROSA', 'ARCO', 'CIELO','FUEGO','MARCO','SUELO','RIVAL','MUNDO','LLAVE','SOLAR',
   'NIEVE','FLOTA','BRISA','CANTO','HIELO','VIAJE',]
   .filter((palabra) => palabra.length === columnas)
@@ -80,6 +82,18 @@ function App() {
     // Aqui termina la tarea 3
 
     const terminada = ganada || filaActual === filas
+    const estadosTeclado = {}
+    const prioridadEstado = { ausente: 0, presente: 1, correcta: 2 }
+
+    intentos.slice(0, filaActual).forEach((fila) => {
+      fila.forEach((letra, columna) => {
+        const estado = estadoDe(fila, columna, solucion)
+
+        if (!estadosTeclado[letra] || prioridadEstado[estado] > prioridadEstado[estadosTeclado[letra]]) {
+          estadosTeclado[letra] = estado
+        }
+      })
+    })
 
       useEffect(() => {
 
@@ -103,6 +117,23 @@ function borrarConRetroceso(fila, columna, evento) {
 
 }
 // tarea 4 finalizada
+
+// tarea 7 inicia
+function introducirLetra(letra) {
+  if (terminada) return
+
+  const columna = intentos[filaActual].findIndex((casilla) => casilla === '')
+  if (columna === -1) return
+
+  const copia = intentos.map((fila) => [...fila])
+  copia[filaActual][columna] = letra
+  setIntentos(copia)
+  setAviso('')
+
+  const casillas = document.querySelectorAll('.fila')[filaActual]?.querySelectorAll('.casilla')
+  casillas?.[columna + 1]?.focus()
+}
+// tarea 7 finalizada
 
 function cambiarLetra(f, c, evento) {
     const letra = evento.target.value.toUpperCase()
@@ -194,6 +225,12 @@ function reiniciarPartida() {
           <button className="boton" type="submit">Comprobar</button>
         </div>
       )}
+      <Teclado
+        letras={letrasTeclado}
+        estados={estadosTeclado}
+        desactivado={terminada}
+        onLetra={introducirLetra}
+      />
     </form>
   )
 }
